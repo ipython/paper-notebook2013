@@ -30,3 +30,8 @@
 *.vrb
 *.xdy
 *.tdo
+
+logs
+.cache
+.trash
+output-long/

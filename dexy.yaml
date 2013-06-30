@@ -1,0 +1,2 @@
+main.tex|jinja|latex:
+    - .ipynb|ipynb

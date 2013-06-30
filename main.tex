@@ -7,6 +7,10 @@
 \usepackage[margin=1.0in]{geometry}
 \usepackage{authblk}
 
+\usepackage{fancyvrb}
+\usepackage{color}
+<< pygments['pastie.tex'] >>
+
 \title{The IPython Notebook: open, reproducible scientific computing}
 \author[1]{Matthias Bussonnier}
 \author[2]{Jonathan Frederic}
@@ -47,5 +51,39 @@ While computing has become a foundation of all it is challenging for researchers
 \section{Broader ecosystem}
 
 \section{Future directions}
+
+\section*{Dexy Snippets}
+
+<% set nb = "notebooks/Chapter1_Introduction.ipynb" %>
+<% set nbdoc = nb + "|ipynb" %>
+
+The notebook \verb|<< nb >>| uses format \verb|<< d[nbdoc].nbformat >>|.
+
+Here are the worksheets in the notebook:
+
+\begin{itemize}
+<% for worksheet in json.loads(d[nbdoc].worksheets) -%>
+<% set cells = worksheet[1] -%>
+<% set documents = worksheet[2] -%>
+
+\item{\verb|<< worksheet[0] >>|}
+
+This worksheet has << len(cells) >> cells and << len(documents) >> documents based on these cells.
+
+\begin{itemize}
+<% for doc in documents -%>
+\item{\verb|<< doc >>|}
+
+Here are the contents of \verb|<< doc >>|:
+
+<% if doc.endswith(".py") or doc.endswith(".md") -%>
+<< d[doc + "|pyg|l"] >>
+<% endif -%>
+
+<% endfor -%>
+\end{itemize}
+
+<% endfor -%>
+\end{itemize}
 
 \end{document}
