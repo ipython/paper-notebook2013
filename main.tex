@@ -171,10 +171,9 @@ publication and education.
 
 \section*{Dexy Snippets}
 
-<% set nb = "notebooks/Chapter1_Introduction.ipynb|ipynb" %>
-<% set nbdoc = nb + "" %>
+<% set nb = d["notebooks/Chapter1_Introduction.ipynb|ipynb"].from_json() -%>
 
-The notebook \verb|<< nb >>| uses format \verb|<< d[nbdoc].nbformat >>|.
+This notebook uses format \verb|<< nb.nbformat >>|.
 
 \subsection*{Markdown Content}
 
@@ -204,17 +203,14 @@ Here is the same cell presented as highlighted markup:
 
 \subsection*{Iterating over Cells and Documents}
 
-<% set cells = json.loads(d[nbdoc].cells) -%>
-<% set documents = json.loads(d[nbdoc].documents) -%>
-
-This notebook has << len(cells) >> cells and << len(documents) >> documents based on these cells.
+This notebook has << len(nb.cells) >> cells and << len(nb.documents) >> documents based on these cells.
 
 \subsubsection*{Cells}
 
 Here is a list of cells:
 
 \begin{itemize}
-<% for cell in cells -%>
+<% for cell in nb.cells -%>
 \item{\verb|<< cell >>|}
 <% endfor -%>
 \end{itemize}
@@ -224,14 +220,14 @@ Here is a list of cells:
 Here is a list of documents:
 
 \begin{itemize}
-<% for doc in documents -%>
+<% for doc in nb.documents -%>
 \item{\verb|<< doc >>|}
 <% endfor -%>
 \end{itemize}
 
 Here are the contents of documents:
 
-<% for doc in documents -%>
+<% for doc in nb.documents -%>
 
 Here are the contents of \verb|<< doc >>|:
 
