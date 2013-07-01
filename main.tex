@@ -54,50 +54,73 @@ While computing has become a foundation of all it is challenging for researchers
 
 \section*{Dexy Snippets}
 
-<% set nb = "notebooks/Chapter1_Introduction.ipynb" %>
-<% set nbdoc = nb + "|ipynb" %>
+<% set nb = "notebooks/Chapter1_Introduction.ipynb|ipynb" %>
+<% set nbdoc = nb + "" %>
 
 The notebook \verb|<< nb >>| uses format \verb|<< d[nbdoc].nbformat >>|.
 
+\subsection*{Markdown Content}
+
 Here is an example of a markdown cell:
 
-<< d['notebooks/Chapter1_Introduction.ipynb--ws-0-cell-42.md'] >>
+<< d['notebooks/Chapter1_Introduction--42.md'] >>
 
 Here is the same cell in a Verbatim block:
 
 \begin{Verbatim}
-<< d['notebooks/Chapter1_Introduction.ipynb--ws-0-cell-42.md'] >>
+<< d['notebooks/Chapter1_Introduction--42.md'] >>
 \end{Verbatim}
 
 Here is the same cell presented as highlighted markup:
 
-<< d['notebooks/Chapter1_Introduction.ipynb--ws-0-cell-42.md|pyg|l'] >>
+<< d['notebooks/Chapter1_Introduction--42.md|pyg|l'] >>
 
-Here are the worksheets in the notebook:
+\subsection*{Python Content}
+
+<< d['notebooks/Chapter1_Introduction--7-input.py|pyg|l'] >>
+
+\begin{Verbatim}
+<< d['notebooks/Chapter1_Introduction--7-output-0.txt'] >>
+\end{Verbatim}
+
+\includegraphics{notebooks/Chapter1_Introduction--7-output-1.png}
+
+\subsection*{Iterating over Cells and Documents}
+
+<% set cells = json.loads(d[nbdoc].cells) -%>
+<% set documents = json.loads(d[nbdoc].documents) -%>
+
+This notebook has << len(cells) >> cells and << len(documents) >> documents based on these cells.
+
+\subsubsection*{Cells}
+
+Here is a list of cells:
 
 \begin{itemize}
-<% for worksheet in json.loads(d[nbdoc].worksheets) -%>
-<% set cells = worksheet[1] -%>
-<% set documents = worksheet[2] -%>
+<% for cell in cells -%>
+\item{\verb|<< cell >>|}
+<% endfor -%>
+\end{itemize}
 
-\item{\verb|<< worksheet[0] >>|}
+\subsubsection*{Documents}
 
-This worksheet has << len(cells) >> cells and << len(documents) >> documents based on these cells.
+Here is a list of documents:
 
 \begin{itemize}
 <% for doc in documents -%>
 \item{\verb|<< doc >>|}
+<% endfor -%>
+\end{itemize}
+
+Here are the contents of documents:
+
+<% for doc in documents -%>
 
 Here are the contents of \verb|<< doc >>|:
 
 <% if doc.endswith(".py") or doc.endswith(".md") -%>
 << d[doc + "|pyg|l"] >>
 <% endif -%>
-
 <% endfor -%>
-\end{itemize}
-
-<% endfor -%>
-\end{itemize}
 
 \end{document}
