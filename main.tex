@@ -120,6 +120,14 @@ Here are the contents of \verb|<< doc >>|:
 
 <% if doc.endswith(".py") or doc.endswith(".md") -%>
 << d[doc + "|pyg|l"] >>
+<% elif doc.endswith(".png") -%>
+\includegraphics{<< doc >>}
+<% elif doc.endswith(".txt") -%>
+\begin{Verbatim}
+<< d[doc] >>
+\end{Verbatim}
+<% else -%>
+Please add a display format for << doc >>.
 <% endif -%>
 <% endfor -%>
 
